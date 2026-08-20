@@ -1,0 +1,224 @@
+/* ------------------------------------------------------------------ */
+/* Skills — editorial floating card wall                               */
+/* ------------------------------------------------------------------ */
+
+/* Giant background typography — moves slower than foreground */
+.bgWords {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  pointer-events: none;
+  user-select: none;
+  opacity: 0.02;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(9rem, 22vw, 24rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+  color: #1a1a1a;
+  white-space: nowrap;
+  z-index: 0;
+  will-change: transform;
+}
+
+/* ------------------------------------------------------------------ */
+/* Glass floating cards                                                */
+/* ------------------------------------------------------------------ */
+
+.card {
+  position: relative;
+  border-radius: 1.5rem;
+  padding: 1.6rem 1.7rem;
+  background: rgba(250, 247, 242, 0.58);
+  backdrop-filter: blur(16px) saturate(1.4);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 24px 50px -24px rgba(26, 26, 26, 0.18);
+  will-change: transform;
+  transition: box-shadow 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Organic sizes */
+.sizeSm { padding: 1.2rem 1.4rem; border-radius: 1.2rem; }
+.sizeMd { padding: 1.6rem 1.7rem; }
+.sizeLg { padding: 2rem 2.1rem; border-radius: 1.8rem; }
+
+/* Soft corner glow blob that follows hover */
+.glow {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  background: radial-gradient(
+    220px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(139, 58, 58, 0.16),
+    transparent 70%
+  );
+  z-index: 0;
+}
+
+.card:hover .glow {
+  opacity: 1;
+}
+
+/* Card content sits above glow */
+.cardBody {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.cardTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+}
+
+.iconTile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 0.8rem;
+  background: rgba(139, 58, 58, 0.09);
+  color: #8b3a3a;
+  flex-shrink: 0;
+}
+
+.name {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  line-height: 1.1;
+  color: #1a1a1a;
+}
+
+.sizeLg .name { font-size: 1.45rem; }
+
+.years {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(139, 58, 58, 0.85);
+  background: rgba(139, 58, 58, 0.08);
+  padding: 0.28rem 0.6rem;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.desc {
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: rgba(26, 26, 26, 0.58);
+}
+
+/* Infinite gentle float — different speeds per card via animation-delay/duration */
+@keyframes cardFloat {
+  0%   { transform: translate3d(0, 0, 0) rotate(0deg); }
+  50%  { transform: translate3d(0, -12px, 0) rotate(0.5deg); }
+  100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+}
+
+.cardFloat {
+  animation: cardFloat var(--float-duration, 7s) ease-in-out infinite;
+  animation-delay: var(--float-delay, 0s);
+  will-change: transform;
+}
+
+/* ------------------------------------------------------------------ */
+/* Hover state — lift, rotate, glow, deeper shadow                     */
+/* ------------------------------------------------------------------ */
+
+.card:hover {
+  transform: translateY(-8px) rotate(var(--hover-rotate, 1.5deg)) scale(1.02);
+  box-shadow: 0 40px 90px -30px rgba(139, 58, 58, 0.35);
+  border-color: rgba(139, 58, 58, 0.28);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.5s ease;
+}
+
+/* ------------------------------------------------------------------ */
+/* Tools marquee                                                       */
+/* ------------------------------------------------------------------ */
+
+.marquee {
+  position: relative;
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+
+.track {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  animation: marqueeScroll 36s linear infinite;
+  will-change: transform;
+}
+
+.marquee:hover .track {
+  animation-play-state: paused;
+}
+
+@keyframes marqueeScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0 0.9rem;
+  padding: 0.85rem 1.5rem;
+  border-radius: 999px;
+  background: rgba(250, 247, 242, 0.6);
+  backdrop-filter: blur(12px) saturate(1.3);
+  -webkit-backdrop-filter: blur(12px) saturate(1.3);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  box-shadow: 0 14px 30px -18px rgba(26, 26, 26, 0.16);
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: #1a1a1a;
+  white-space: nowrap;
+  transition: color 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+  will-change: transform;
+}
+
+.pill svg {
+  color: #8b3a3a;
+}
+
+.pill:hover {
+  color: #8b3a3a;
+  border-color: rgba(139, 58, 58, 0.35);
+  transform: translateY(-2px);
+}
+
+/* ------------------------------------------------------------------ */
+/* Responsive                                                          */
+/* ------------------------------------------------------------------ */
+
+@media (max-width: 640px) {
+  .card {
+    padding: 1.3rem 1.4rem;
+  }
+
+  .desc {
+    font-size: 0.78rem;
+  }
+}
+

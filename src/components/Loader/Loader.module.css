@@ -1,0 +1,75 @@
+/* ------------------------------------------------------------------ */
+/* Loader.module.css — cinematic loading screen styles                 */
+/* ------------------------------------------------------------------ */
+
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #f5f1eb;
+}
+
+/* Fine grain overlay for editorial texture */
+.loader::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Monogram row */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.monogram {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 500;
+  color: #1a1a1a;
+}
+
+.monogramLine {
+  width: 2.5rem;
+  height: 1px;
+  background: rgba(139, 58, 58, 0.4);
+}
+
+/* Progress rail */
+.rail {
+  width: 14rem;
+  height: 1px;
+  overflow: hidden;
+  background: rgba(26, 26, 26, 0.08);
+}
+
+@media (min-width: 768px) {
+  .rail {
+    width: 18rem;
+  }
+}
+
+.railFill {
+  height: 100%;
+  background: #8b3a3a;
+}
+
+/* Bottom hint */
+.hint {
+  position: absolute;
+  bottom: 2.5rem;
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(26, 26, 26, 0.3);
+}
+

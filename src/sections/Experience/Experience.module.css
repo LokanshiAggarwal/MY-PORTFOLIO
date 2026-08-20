@@ -1,0 +1,289 @@
+/* ------------------------------------------------------------------ */
+/* Experience — editorial alternating timeline + numbers               */
+/* ------------------------------------------------------------------ */
+
+/* Giant background word — moves slower than foreground */
+.bgWord {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  user-select: none;
+  opacity: 0.02;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(14rem, 38vw, 38rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: var(--ink);
+  white-space: nowrap;
+  z-index: 0;
+  will-change: transform;
+}
+
+/* ------------------------------------------------------------------ */
+/* Timeline                                                            */
+/* ------------------------------------------------------------------ */
+
+.timeline {
+  position: relative;
+}
+
+/* Static faint line */
+.line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 1.25rem;
+  width: 1px;
+  /* Explicit height so the accent fill can always resolve against it */
+  height: 100%;
+  background: var(--line);
+  z-index: 0;
+}
+
+@media (min-width: 1024px) {
+  .line {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+/* Accent fill line — grows with scroll (scaleY scrub) */
+.lineFill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, var(--accent-mid), var(--accent));
+  transform-origin: top center;
+  transform: scaleY(0);
+  will-change: transform;
+}
+
+/* Timeline dot — centred with margins (not transform) so GSAP's
+   rotate/scale entrance can never knock it off the line */
+.dot {
+  position: absolute;
+  left: 1.25rem;
+  top: 1.9rem;
+  width: 13px;
+  height: 13px;
+  margin-left: calc(13px / -2);
+  border-radius: 9999px;
+  background: var(--accent);
+  border: 3px solid var(--section3);
+  box-shadow: 0 0 0 1px var(--accent-mid);
+  z-index: 1;
+}
+
+@media (min-width: 1024px) {
+  .dot {
+    left: 50%;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Timeline cards                                                      */
+/* ------------------------------------------------------------------ */
+
+.card {
+  position: relative;
+  border-radius: 1.6rem;
+  padding: 1.7rem;
+  background: rgba(250, 247, 242, 0.72);
+  backdrop-filter: blur(16px) saturate(1.35);
+  -webkit-backdrop-filter: blur(16px) saturate(1.35);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  box-shadow: 0 24px 50px -24px rgba(26, 26, 26, 0.16);
+  /* Keep the glow + chips inside the rounded corners */
+  overflow: hidden;
+  transition: box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.card:hover {
+  box-shadow: 0 40px 90px -30px rgba(139, 58, 58, 0.32);
+  border-color: var(--accent-mid);
+}
+
+/* Soft glow that follows the mouse */
+.glow {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  background: radial-gradient(
+    240px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(139, 58, 58, 0.14),
+    transparent 70%
+  );
+  z-index: 0;
+}
+
+.card:hover .glow {
+  opacity: 1;
+}
+
+.cardBody {
+  position: relative;
+  z-index: 1;
+}
+
+.cardTop {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.iconTile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 0.9rem;
+  background: var(--accent-soft);
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.period {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: var(--accent-soft);
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  margin-left: auto;
+}
+
+.title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.45rem;
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--ink);
+}
+
+.desc {
+  margin-top: 0.7rem;
+  font-size: 0.88rem;
+  line-height: 1.7;
+  color: rgba(26, 26, 26, 0.6);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.1rem;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: rgba(245, 241, 235, 0.6);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: rgba(26, 26, 26, 0.65);
+  transition: border-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+
+.chip:hover {
+  border-color: var(--accent-mid);
+  color: var(--accent);
+  transform: translateY(-2px);
+}
+
+/* ------------------------------------------------------------------ */
+/* Numbers / stats strip                                               */
+/* ------------------------------------------------------------------ */
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: rgba(26, 26, 26, 0.06);
+  border: 1px solid rgba(26, 26, 26, 0.06);
+  border-radius: 2rem;
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .statsGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 2.6rem 1.5rem;
+  background: var(--section3);
+  text-align: center;
+  transition: background 0.5s ease;
+}
+
+.stat:hover {
+  background: var(--alt);
+}
+
+.statValue {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(2.8rem, 5vw, 4.2rem);
+  font-weight: 600;
+  line-height: 1;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.statLabel {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(26, 26, 26, 0.5);
+}
+
+/* ------------------------------------------------------------------ */
+/* Responsive                                                          */
+/* ------------------------------------------------------------------ */
+
+@media (max-width: 640px) {
+  .card {
+    padding: 1.4rem;
+  }
+
+  .title {
+    font-size: 1.2rem;
+  }
+
+  .period {
+    margin-left: 0;
+    margin-top: 0.4rem;
+  }
+
+  .cardTop {
+    flex-wrap: wrap;
+  }
+}
+

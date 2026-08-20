@@ -1,0 +1,311 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------------------------------- */
+/* Design tokens                       */
+/* ---------------------------------- */
+:root {
+  --bg: #f5f1eb;
+  --alt: #efe8df;
+  --section3: #f8f5f1;
+  --card: #faf7f2;
+  --ink: #1a1a1a;
+  --accent: #8b3a3a;
+  --accent-mid: rgba(139, 58, 58, 0.35);
+  --accent-soft: rgba(139, 58, 58, 0.1);
+  --line: rgba(0, 0, 0, 0.08);
+  --ease-power4: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-power3: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ---------------------------------- */
+/* Base                                */
+/* ---------------------------------- */
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: initial;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  @media (max-width: 768px) {
+    body {
+      cursor: auto;
+    }
+  }
+
+  a,
+  button {
+    cursor: none;
+  }
+
+  @media (max-width: 768px) {
+    a,
+    button {
+      cursor: pointer;
+    }
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: var(--bg);
+  }
+
+  /* Visible focus ring for keyboard navigation */
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* Sections align comfortably under the fixed glass navbar */
+  section[id] {
+    scroll-margin-top: 5rem;
+  }
+}
+
+/* ---------------------------------- */
+/* Scrollbar                          */
+/* ---------------------------------- */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent-mid);
+  border-radius: 99px;
+  transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-mid) var(--bg);
+}
+
+/* ---------------------------------- */
+/* Typography helpers                 */
+/* ---------------------------------- */
+@layer components {
+  .font-serif-display {
+    font-family: 'Playfair Display', Georgia, serif;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-3 text-[11px] font-medium uppercase tracking-widest-2 text-accent;
+  }
+}
+
+/* ---------------------------------- */
+/* Utilities                          */
+/* ---------------------------------- */
+.glass {
+  background: rgba(245, 241, 235, 0.72);
+  backdrop-filter: blur(18px) saturate(1.4);
+  -webkit-backdrop-filter: blur(18px) saturate(1.4);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 18px 40px -20px rgba(26, 26, 26, 0.12);
+}
+
+.text-outline {
+  -webkit-text-stroke: 1px rgba(26, 26, 26, 0.22);
+  color: transparent;
+}
+
+.no-cursor {
+  cursor: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .no-cursor,
+  .no-cursor * {
+    cursor: none !important;
+  }
+}
+
+/* SplitType — initial hidden state handled by JS, fallback */
+.word-mask {
+  overflow: hidden;
+  display: inline-block;
+}
+
+/* ---------------------------------- */
+/* Hero — cinematic full-screen section */
+/* ---------------------------------- */
+.hero-grain::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@keyframes hero-blob-a {
+  0%   { transform: translate3d(0, 0, 0) scale(1); }
+  50%  { transform: translate3d(4vw, -6vh, 0) scale(1.12); }
+  100% { transform: translate3d(0, 0, 0) scale(1); }
+}
+@keyframes hero-blob-b {
+  0%   { transform: translate3d(0, 0, 0) scale(1.08); }
+  50%  { transform: translate3d(-5vw, 5vh, 0) scale(0.94); }
+  100% { transform: translate3d(0, 0, 0) scale(1.08); }
+}
+@keyframes hero-blob-c {
+  0%   { transform: translate3d(0, 0, 0) scale(0.96); }
+  50%  { transform: translate3d(3vw, 4vh, 0) scale(1.1); }
+  100% { transform: translate3d(0, 0, 0) scale(0.96); }
+}
+
+.hero-blob-wrap {
+  position: absolute;
+  will-change: transform;
+}
+
+.hero-blob {
+  border-radius: 9999px;
+  pointer-events: none;
+  filter: blur(70px);
+  will-change: transform;
+}
+
+.hero-title-line .word {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.hero-title-word {
+  display: inline-block;
+  will-change: transform, opacity, filter;
+  transform-origin: 0% 50%;
+}
+
+/* Greeting line ("Hi, I'm") — smaller, lighter editorial accent */
+.hero-title-greeting {
+  font-size: 0.42em;
+  font-weight: 400;
+  font-style: italic;
+  color: rgba(26, 26, 26, 0.55);
+  margin-bottom: 0.1em;
+}
+
+/* Name line — "Lokanshi" is the largest element */
+.hero-title-name-line {
+  font-size: 1em;
+  line-height: 1;
+}
+
+.hero-name-word {
+  font-weight: 600;
+  font-style: italic;
+}
+
+/* Floating glass cards */
+.hero-card {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  border-radius: 9999px;
+  background: rgba(250, 247, 242, 0.62);
+  backdrop-filter: blur(14px) saturate(1.35);
+  -webkit-backdrop-filter: blur(14px) saturate(1.35);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  box-shadow: 0 18px 45px -20px rgba(26, 26, 26, 0.22);
+  padding: 0.65rem 1.05rem;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #1a1a1a;
+  white-space: nowrap;
+  will-change: transform;
+  z-index: 20;
+}
+
+/* Rotating badge */
+.hero-badge-spin {
+  display: inline-flex;
+  animation: hero-spin 40s linear infinite;
+  will-change: transform;
+}
+@keyframes hero-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Background giant typography */
+.hero-bg-word {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  user-select: none;
+  opacity: 0.02;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(12rem, 34vw, 34rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: #1a1a1a;
+  white-space: nowrap;
+  z-index: 0;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+

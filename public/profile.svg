@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="800" height="1000" role="img" aria-label="Editorial portrait placeholder of Lokanshi">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#EFE8DF"/>
+      <stop offset="1" stop-color="#E2D8CA"/>
+    </linearGradient>
+    <linearGradient id="figure" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2B2118"/>
+      <stop offset="1" stop-color="#141414"/>
+    </linearGradient>
+    <clipPath id="frame"><rect width="800" height="1000" rx="48"/></clipPath>
+  </defs>
+  <g clip-path="url(#frame)">
+    <rect width="800" height="1000" fill="url(#bg)"/>
+    <!-- accent sun disc -->
+    <circle cx="600" cy="240" r="190" fill="#8B3A3A" opacity="0.14"/>
+    <circle cx="600" cy="240" r="242" fill="none" stroke="#8B3A3A" stroke-opacity="0.2" stroke-width="1.5"/>
+    <!-- fine editorial lines -->
+    <path d="M64 884 H300" stroke="#8B3A3A" stroke-opacity="0.5" stroke-width="2"/>
+    <circle cx="320" cy="884" r="5" fill="#8B3A3A" opacity="0.6"/>
+    <path d="M560 120 H736" stroke="#8B3A3A" stroke-opacity="0.4" stroke-width="1.5"/>
+    <!-- silhouette -->
+    <path d="M400 610 C 292 610 232 542 232 438 C 232 320 296 232 400 232 C 504 232 568 320 568 438 C 568 542 508 610 400 610 Z" fill="url(#figure)"/>
+    <path d="M400 610 C 400 700 300 722 216 762 C 160 790 132 828 132 878 L132 1000 L668 1000 L668 878 C668 828 640 790 584 762 C500 722 400 700 400 610 Z" fill="url(#figure)"/>
+    <!-- stylised face highlight -->
+    <ellipse cx="352" cy="360" rx="62" ry="86" fill="#8B3A3A" opacity="0.55"/>
+    <!-- sparkle -->
+    <path d="M652 646 l8 20 20 8 -20 8 -8 20 -8 -20 -20 -8 20 -8 z" fill="#8B3A3A" opacity="0.5"/>
+  </g>
+</svg>
+

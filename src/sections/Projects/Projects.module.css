@@ -1,0 +1,238 @@
+/* ------------------------------------------------------------------ */
+/* Projects.module.css — luxury agency portfolio section               */
+/* ------------------------------------------------------------------ */
+
+/* The section — min 200vh, parchment bg, subtle grain */
+.section {
+  position: relative;
+  min-height: 200vh;
+  background: #f5f1eb;
+  overflow: hidden;
+}
+
+/* Pin-spacer friendly root content */
+.root {
+  position: relative;
+  width: 100%;
+}
+
+/* ------------------------------------------------------------------ */
+/* Intro — SELECTED WORK label, giant title, paragraph                 */
+/* ------------------------------------------------------------------ */
+
+.intro {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 8rem clamp(1.5rem, 6vw, 6rem) 4rem;
+}
+
+.label {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #8b3a3a;
+  margin-bottom: 2rem;
+}
+
+.label::before {
+  content: '';
+  width: 3.5rem;
+  height: 1px;
+  background: rgba(139, 58, 58, 0.45);
+}
+
+.title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 0.98;
+  color: #1a1a1a;
+  font-size: 120px;
+}
+
+/* Each word is masked so words slide up from behind */
+.titleWord {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+}
+
+.titleWordInner {
+  display: inline-block;
+  will-change: transform, opacity, filter;
+  transform-origin: 0% 50%;
+}
+
+.paragraph {
+  max-width: 650px;
+  margin-top: 2.4rem;
+  font-size: 1.02rem;
+  line-height: 1.9;
+  color: rgba(26, 26, 26, 0.62);
+}
+
+/* Each line revealed independently */
+.paraLine {
+  display: block;
+  overflow: hidden;
+}
+
+.paraLineInner {
+  display: block;
+  will-change: transform, opacity, filter;
+}
+
+/* ------------------------------------------------------------------ */
+/* Pinned stage — each project fills one viewport                      */
+/* ------------------------------------------------------------------ */
+
+.stage {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.sceneWrap {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  padding: 0 clamp(1.5rem, 6vw, 6rem);
+  will-change: transform, opacity;
+}
+
+/* Stacked mode (tablet / mobile / reduced motion) — normal flow */
+.stageStacked {
+  height: auto;
+  overflow: visible;
+}
+
+.stageStacked .sceneWrap {
+  position: relative;
+  height: auto;
+  min-height: 100vh;
+  padding: 4rem clamp(1.5rem, 6vw, 6rem);
+}
+
+@media (max-width: 640px) {
+  .stageStacked .sceneWrap {
+    padding: 3rem 1.4rem;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Giant background words — 2% opacity, slower drift                   */
+/* ------------------------------------------------------------------ */
+
+.bgWords {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  pointer-events: none;
+  user-select: none;
+  opacity: 0.02;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(9rem, 22vw, 24rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+  color: #1a1a1a;
+  white-space: nowrap;
+  will-change: transform;
+}
+
+/* ------------------------------------------------------------------ */
+/* Grain overlay                                                       */
+/* ------------------------------------------------------------------ */
+
+.grain {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ------------------------------------------------------------------ */
+/* Progress rail — thin accent line tracking scroll                    */
+/* ------------------------------------------------------------------ */
+
+.progress {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 3px;
+  width: 100%;
+  background: transparent;
+  z-index: 60;
+  pointer-events: none;
+}
+
+.progressFill {
+  height: 100%;
+  width: 100%;
+  background: #8b3a3a;
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  will-change: transform;
+}
+
+/* ------------------------------------------------------------------ */
+/* Responsive title sizes                                              */
+/* ------------------------------------------------------------------ */
+
+@media (max-width: 1440px) {
+  .title {
+    font-size: 96px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .title {
+    font-size: 72px;
+  }
+
+  .intro {
+    padding: 6rem 2rem 3rem;
+  }
+
+  .sceneWrap {
+    padding: 0 2rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .title {
+    font-size: 48px;
+  }
+
+  .intro {
+    min-height: auto;
+    padding: 5rem 1.4rem 3rem;
+  }
+
+  .paragraph {
+    font-size: 0.95rem;
+  }
+
+  .sceneWrap {
+    padding: 0 1.4rem;
+  }
+}
+

@@ -1,0 +1,144 @@
+/* ------------------------------------------------------------------ */
+/* CaseStudy.module.css — cinematic project scene compositions         */
+/* ------------------------------------------------------------------ */
+
+/* Main hero media — rounded, shadowed, reveal via clip-path */
+.heroMedia {
+  position: relative;
+  border-radius: 2rem;
+  overflow: hidden;
+  box-shadow: 0 50px 100px -40px rgba(26, 26, 26, 0.4);
+  aspect-ratio: 16 / 11;
+  will-change: transform, clip-path, filter;
+  transform-origin: center center;
+}
+
+.heroMedia img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  will-change: transform;
+}
+
+/* Decorative offset frame behind the hero image (editorial) */
+.offsetFrame {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(139, 58, 58, 0.22);
+  border-radius: 2rem;
+  transform: translate(18px, 18px);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Accent blob behind centered hero */
+.accentBlob {
+  position: absolute;
+  border-radius: 9999px;
+  background: rgba(139, 58, 58, 0.1);
+  filter: blur(70px);
+  pointer-events: none;
+  z-index: -1;
+  will-change: transform;
+}
+
+/* Floating stat chip over the hero image (tiny glass badge) */
+.floatChip {
+  position: absolute;
+  bottom: 1.2rem;
+  left: 1.2rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  background: rgba(250, 247, 242, 0.72);
+  backdrop-filter: blur(14px) saturate(1.35);
+  -webkit-backdrop-filter: blur(14px) saturate(1.35);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 14px 30px -18px rgba(26, 26, 26, 0.3);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #1a1a1a;
+  z-index: 5;
+  will-change: transform;
+}
+
+/* Scroll-driven parallax inner layer */
+.parallaxLayer {
+  position: absolute;
+  inset: -6% 0;
+  will-change: transform;
+}
+
+/* ------------------------------------------------------------------ */
+/* Case Study modal trigger button                                     */
+/* ------------------------------------------------------------------ */
+
+.caseStudyTrigger {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  border-radius: 999px;
+  padding: 0.9rem 1.7rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: #f5f1eb;
+  background: #8b3a3a;
+  border: 1px solid rgba(139, 58, 58, 0.5);
+  box-shadow: 0 18px 40px -18px rgba(139, 58, 58, 0.5);
+  overflow: hidden;
+  isolation: isolate;
+  transition:
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.4s ease;
+  will-change: transform;
+}
+
+.caseStudyTrigger svg {
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.caseStudyTrigger:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 28px 56px -22px rgba(139, 58, 58, 0.55);
+}
+
+.caseStudyTrigger:hover svg {
+  transform: translateX(4px);
+}
+
+/* ------------------------------------------------------------------ */
+/* Alternate composition helpers                                       */
+/* ------------------------------------------------------------------ */
+
+.splitLeftMedia {
+  order: 1;
+}
+
+.splitLeftContent {
+  order: 2;
+}
+
+.splitRightMedia {
+  order: 2;
+}
+
+.splitRightContent {
+  order: 1;
+}
+
+@media (max-width: 1023px) {
+  .splitRightMedia {
+    order: 1;
+  }
+  .splitRightContent {
+    order: 2;
+  }
+}
+

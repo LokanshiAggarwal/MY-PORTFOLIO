@@ -1,0 +1,96 @@
+/* ------------------------------------------------------------------ */
+/* Cursor.module.css — custom cursor states                            */
+/* ------------------------------------------------------------------ */
+
+.ring {
+  position: fixed;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid rgba(26, 26, 26, 0.4);
+  background: transparent;
+  mix-blend-mode: difference;
+  opacity: 0;
+  will-change: transform;
+  transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    height 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    border-radius 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.35s ease, background-color 0.35s ease;
+}
+
+.dot {
+  position: fixed;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+  z-index: 9999;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(26, 26, 26, 0.9);
+  mix-blend-mode: difference;
+  opacity: 0;
+  will-change: transform;
+}
+
+/* Label shown inside the ring for image/drag states */
+.label {
+  font-size: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #f5f1eb;
+  white-space: nowrap;
+  user-select: none;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.labelVisible {
+  opacity: 1;
+}
+
+/* State modifiers */
+.ringText {
+  border-radius: 14px;
+  border-color: rgba(139, 58, 58, 0.5);
+  background: rgba(139, 58, 58, 0.05);
+}
+
+.ringHover {
+  border-radius: 50%;
+  border-color: rgba(139, 58, 58, 0.6);
+  background: rgba(139, 58, 58, 0.08);
+}
+
+.ringImage {
+  border-radius: 50%;
+  border-color: transparent;
+  background: rgba(26, 26, 26, 0.85);
+  mix-blend-mode: normal;
+}
+
+.ringDrag {
+  border-radius: 50%;
+  border-color: transparent;
+  background: rgba(139, 58, 58, 0.9);
+  mix-blend-mode: normal;
+}
+
+.ringHidden {
+  opacity: 0 !important;
+}
+
+/* Reduced motion / coarse pointers — hide entirely */
+@media (max-width: 768px), (hover: none), (pointer: coarse) {
+  .ring,
+  .dot {
+    display: none !important;
+  }
+}
+

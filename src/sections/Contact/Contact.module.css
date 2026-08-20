@@ -1,0 +1,495 @@
+/* ------------------------------------------------------------------ */
+/* Contact.module.css — premium editorial split contact section        */
+/* ------------------------------------------------------------------ */
+
+/* The section — min 100vh, warm editorial background */
+.section {
+  position: relative;
+  min-height: 100vh;
+  background: #efe8df;
+  overflow: hidden;
+}
+
+/* Giant background typography — 2% opacity, slow parallax */
+.bgWord {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  user-select: none;
+  opacity: 0.02;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(14rem, 36vw, 36rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: #1a1a1a;
+  white-space: nowrap;
+  z-index: 0;
+  will-change: transform;
+}
+
+/* Floating blurred circles */
+.blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(80px);
+  pointer-events: none;
+  will-change: transform;
+  z-index: 0;
+}
+
+/* ------------------------------------------------------------------ */
+/* Section label — GET IN TOUCH (4px letter spacing)                   */
+/* ------------------------------------------------------------------ */
+
+.label {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #8b3a3a;
+  margin-bottom: 2.25rem;
+}
+
+.label::before {
+  content: '';
+  width: 3.5rem;
+  height: 1px;
+  background: rgba(139, 58, 58, 0.45);
+}
+
+/* ------------------------------------------------------------------ */
+/* Main heading — Playfair Display, split into masked lines            */
+/* ------------------------------------------------------------------ */
+
+.heading {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.02;
+  color: #1a1a1a;
+  font-size: 120px;
+}
+
+/* Each line is masked so words slide up from behind */
+.headingLine {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.06em;
+}
+
+.headingWord {
+  display: inline-block;
+  white-space: nowrap;
+  will-change: transform, opacity, filter;
+  transform-origin: 0% 50%;
+}
+
+/* Description — max 520px */
+.description {
+  max-width: 520px;
+  color: rgba(26, 26, 26, 0.62);
+  line-height: 1.9;
+  font-size: 1rem;
+}
+
+/* ------------------------------------------------------------------ */
+/* Contact details — icon + label/value + underline reveal             */
+/* ------------------------------------------------------------------ */
+
+.detailItem {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.55rem 0;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.detailItem::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0.1rem;
+  height: 1px;
+  width: 100%;
+  background: #8b3a3a;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.detailItem:hover {
+  transform: translateX(6px);
+}
+
+.detailItem:hover::after {
+  transform: scaleX(1);
+}
+
+.detailIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(26, 26, 26, 0.12);
+  color: #8b3a3a;
+  background: rgba(250, 247, 242, 0.5);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.detailItem:hover .detailIcon {
+  background: #8b3a3a;
+  color: #f5f1eb;
+  border-color: #8b3a3a;
+  transform: translateY(-2px) rotate(-6deg);
+}
+
+.detailLabel {
+  display: block;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(26, 26, 26, 0.42);
+}
+
+.detailValue {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: rgba(26, 26, 26, 0.85);
+}
+
+/* ------------------------------------------------------------------ */
+/* Social icons — rotate / glow / scale on hover                       */
+/* ------------------------------------------------------------------ */
+
+.socialIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(26, 26, 26, 0.14);
+  color: rgba(26, 26, 26, 0.65);
+  background: rgba(250, 247, 242, 0.4);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.socialIcon:hover {
+  transform: rotate(-8deg) scale(1.12) translateY(-3px);
+  color: #8b3a3a;
+  border-color: rgba(139, 58, 58, 0.4);
+  box-shadow: 0 0 26px rgba(139, 58, 58, 0.35);
+  background: rgba(250, 247, 242, 0.9);
+}
+
+/* Resume button */
+.resumeBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.85rem 1.6rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(26, 26, 26, 0.22);
+  color: #1a1a1a;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  background: rgba(250, 247, 242, 0.4);
+  text-decoration: none;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.resumeBtn:hover {
+  background: #1a1a1a;
+  color: #f5f1eb;
+  border-color: #1a1a1a;
+  box-shadow: 0 18px 45px -18px rgba(26, 26, 26, 0.45);
+  transform: translateY(-2px);
+}
+
+/* ------------------------------------------------------------------ */
+/* Form — glass card                                                   */
+/* ------------------------------------------------------------------ */
+
+.form {
+  position: relative;
+  border-radius: 2rem;
+  background: rgba(250, 247, 242, 0.55);
+  backdrop-filter: blur(18px) saturate(1.35);
+  -webkit-backdrop-filter: blur(18px) saturate(1.35);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 30px 70px -30px rgba(26, 26, 26, 0.22);
+  padding: 2.5rem;
+}
+
+.formInner {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+/* ------------------------------------------------------------------ */
+/* Field — rounded, soft shadow, glass, rotating border on focus       */
+/* ------------------------------------------------------------------ */
+
+.field {
+  position: relative;
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 10px 30px -14px rgba(26, 26, 26, 0.14);
+  transition: box-shadow 0.4s ease;
+}
+
+.field:focus-within {
+  box-shadow: 0 16px 44px -16px rgba(139, 58, 58, 0.32);
+}
+
+/* Rotating conic gradient ring — masked to a thin border */
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes spinBorder {
+  to {
+    --angle: 360deg;
+  }
+}
+
+.fieldBorder {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: conic-gradient(
+    from var(--angle),
+    transparent 0deg,
+    rgba(139, 58, 58, 0.9) 70deg,
+    transparent 140deg
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  z-index: 2;
+}
+
+.field:focus-within .fieldBorder {
+  opacity: 1;
+  animation: spinBorder 2.6s linear infinite;
+}
+
+/* Error state — soft red tint */
+.fieldError {
+  box-shadow: 0 10px 30px -14px rgba(192, 57, 43, 0.28);
+}
+
+.fieldError .fieldLabel {
+  color: #c0392b;
+}
+
+.fieldInput {
+  width: 100%;
+  position: relative;
+  z-index: 1;
+  background: transparent;
+  border: 0;
+  outline: none;
+  padding: 1.4rem 1.15rem 0.6rem;
+  font-size: 0.95rem;
+  font-family: inherit;
+  color: #1a1a1a;
+  border-radius: inherit;
+}
+
+.fieldTextarea .fieldInput {
+  resize: vertical;
+  min-height: 7.5rem;
+  line-height: 1.7;
+}
+
+/* Floating label */
+.fieldLabel {
+  position: absolute;
+  left: 1.15rem;
+  top: 1.05rem;
+  font-size: 0.95rem;
+  color: rgba(26, 26, 26, 0.45);
+  pointer-events: none;
+  z-index: 1;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.field:focus-within .fieldLabel,
+.fieldFilled .fieldLabel {
+  top: 0.42rem;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #8b3a3a;
+}
+
+/* Error message — slides in smoothly */
+.error {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+  font-size: 0.72rem;
+  color: #c0392b;
+  letter-spacing: 0.02em;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.errorVisible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ------------------------------------------------------------------ */
+/* Submit button — magnetic, loading spinner, success check            */
+/* ------------------------------------------------------------------ */
+
+.submitBtn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 1.1rem 1.5rem;
+  border-radius: 9999px;
+  border: 0;
+  background: #1a1a1a;
+  color: #f5f1eb;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  overflow: hidden;
+  transition: background 0.5s ease, box-shadow 0.5s ease, transform 0.5s ease;
+}
+
+.submitBtn:hover:not(:disabled) {
+  background: #8b3a3a;
+  box-shadow: 0 20px 50px -20px rgba(139, 58, 58, 0.6);
+}
+
+.submitBtn:disabled {
+  cursor: default;
+  opacity: 0.92;
+}
+
+.spinner {
+  width: 1.05rem;
+  height: 1.05rem;
+  border-radius: 9999px;
+  border: 2px solid rgba(245, 241, 235, 0.3);
+  border-top-color: #f5f1eb;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.checkmark {
+  width: 1.4rem;
+  height: 1.4rem;
+  border-radius: 9999px;
+  background: #2e7d32;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  animation: checkPop 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes checkPop {
+  0% {
+    transform: scale(0) rotate(-30deg);
+  }
+  60% {
+    transform: scale(1.25) rotate(6deg);
+  }
+  100% {
+    transform: scale(1) rotate(0);
+  }
+}
+
+.successNote {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 1rem;
+  padding: 0.85rem 1rem;
+  border-radius: 1rem;
+  background: rgba(46, 125, 50, 0.1);
+  border: 1px solid rgba(46, 125, 50, 0.25);
+  color: #2e7d32;
+  font-size: 0.85rem;
+}
+
+.errorNote {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 1rem;
+  padding: 0.85rem 1rem;
+  border-radius: 1rem;
+  background: rgba(192, 57, 43, 0.1);
+  border: 1px solid rgba(192, 57, 43, 0.25);
+  color: #c0392b;
+  font-size: 0.85rem;
+}
+
+/* ------------------------------------------------------------------ */
+/* Responsive heading sizes                                            */
+/* ------------------------------------------------------------------ */
+
+@media (max-width: 1280px) {
+  .heading {
+    font-size: 96px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .heading {
+    font-size: 80px;
+  }
+}
+
+@media (max-width: 640px) {
+  .heading {
+    font-size: 52px;
+  }
+
+  .form {
+    padding: 1.75rem;
+  }
+}
+

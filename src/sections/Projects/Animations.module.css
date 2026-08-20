@@ -1,0 +1,107 @@
+/* ------------------------------------------------------------------ */
+/* Animations.module.css — shared keyframes & motion utilities         */
+/* ------------------------------------------------------------------ */
+
+/* Gentle perpetual float for decorative elements */
+@keyframes floatY {
+  0%   { transform: translate3d(0, 0, 0); }
+  50%  { transform: translate3d(0, -14px, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+
+.floatSlow {
+  animation: floatY 8s ease-in-out infinite;
+  will-change: transform;
+}
+
+.floatSlower {
+  animation: floatY 11s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Soft pulse for accent dots / badges */
+@keyframes pulseSoft {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50%      { opacity: 1;   transform: scale(1.12); }
+}
+
+.pulseSoft {
+  animation: pulseSoft 3.2s ease-in-out infinite;
+}
+
+/* Ripple burst used on pill-button click */
+@keyframes ripple {
+  to {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+.ripple {
+  position: absolute;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.4);
+  pointer-events: none;
+  transform: scale(0);
+  animation: ripple 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Slow spin for circular decorations */
+@keyframes spinSlow {
+  to { transform: rotate(360deg); }
+}
+
+.spinSlow {
+  animation: spinSlow 40s linear infinite;
+  will-change: transform;
+}
+
+/* Shimmer for reflections on image hover */
+@keyframes shimmer {
+  0%   { transform: translateX(-120%) skewX(-18deg); }
+  100% { transform: translateX(220%) skewX(-18deg); }
+}
+
+.shimmer {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.shimmer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 40%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.35),
+    transparent
+  );
+  animation: shimmer 1.6s ease-in-out forwards;
+  left: 0;
+}
+
+/* Grain texture overlay */
+.grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Reduced motion guard */
+@media (prefers-reduced-motion: reduce) {
+  .floatSlow,
+  .floatSlower,
+  .spinSlow,
+  .pulseSoft {
+    animation: none !important;
+  }
+}
+
